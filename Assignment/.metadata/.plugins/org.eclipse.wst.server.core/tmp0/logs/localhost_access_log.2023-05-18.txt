@@ -1,0 +1,5 @@
+127.0.0.1 - - [18/May/2023:10:46:04 +0530] "GET / HTTP/1.1" 404 751
+0:0:0:0:0:0:0:1 - - [18/May/2023:10:46:54 +0530] "GET /eventPlannerdemo/ HTTP/1.1" 200 192
+0:0:0:0:0:0:0:1 - - [18/May/2023:10:46:57 +0530] "GET /eventPlannerdemo/Login.jsp HTTP/1.1" 200 437
+0:0:0:0:0:0:0:1 - - [18/May/2023:10:47:27 +0530] "POST /eventPlannerdemo/login HTTP/1.1" 200 2117
+0:0:0:0:0:0:0:1 - - [18/May/2023:10:47:55 +0530] "GET /eventPlannerdemo/updatePlanner.jsp?event_Planner_id=&event_Planner_name=&event_Planner_email=&uname=&pass= HTTP/1.1" 404 747

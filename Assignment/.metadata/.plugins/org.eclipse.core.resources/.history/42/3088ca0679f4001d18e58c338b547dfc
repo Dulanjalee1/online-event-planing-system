@@ -1,0 +1,140 @@
+package eventPlannerdemo;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+import java.util.ArrayList;
+
+public class eventplannerDBUtil {
+	private static Connection con = null;
+	private static Statement stmt = null;
+	private static ResultSet rs = null;
+	 
+	
+public static List<eventplanner> validate(String username , String password){
+		
+		ArrayList<eventplanner> event = new ArrayList<>();
+		
+		
+		 
+		 try {
+			   con = DBConnect.getConnection();
+			   stmt = con.createStatement();   
+			   String sql = "select*from event_planner where username='"+username+"'and Password = '" +password+"'";
+			   rs = stmt.executeQuery(sql);
+			 
+			 if(rs.next()) {
+				 int event_Planner_id = rs.getInt(1);
+				 String event_Planner_name = rs.getString(2);
+				 String event_Planner_email = rs.getString(3);
+				 String username = rs.getString(4);
+				 String Pass = rs.getString(5);
+				 
+				 eventplanner ep = new eventplanner(event_Planner_id,event_Planner_name,event_Planner_email,username,Pass);
+				 event.add(ep);
+		
+				 
+			 }
+		 
+		 }
+		  catch(Exception e) {
+			  e.printStackTrace();
+		  }
+		
+		return event;
+}
+public static boolean insertAgenda(String Clientname,String Venue,String Budget,String Date) {
+	boolean isSuccess = false;
+	
+	 
+	 
+	 try {
+		 
+		  
+		  con = DBConnect.getConnection();
+		  stmt = con.createStatement();
+		  String sql = "insert into agendadetails values('"+Clientname+"','"+Venue+"','"+Budget+"','"+Date+"')";
+		  int rs = stmt.executeUpdate(sql);
+		 
+		 if(rs>0) {
+			 isSuccess = true;
+		 }
+		 else {
+			 isSuccess =  false;
+		 }
+	 }
+	 
+	 catch(Exception e) {
+		  e.printStackTrace();
+	  }
+	 
+	return isSuccess; 
+	
+	
+	}
+
+   public static List<eventplanner> getPlannerDetails(String id) {
+	   
+	   int convertedID = Integer.parseInt(id);
+	   
+	   
+	   ArrayList<eventplanner> event = new ArrayList<>();
+	   
+	     try {
+	    	con = DBConnect.getConnection();
+	    	stmt = con.createStatement();
+	    	String sql = "select*from where event_planner where event_Planner_id = '"+convertedID+"'";
+	    	rs = stmt.executeQuery(sql);
+	    	
+	    	while(rs.next()) {
+	    		int event_planner_id = rs.getInt(1); 
+	    		String event_planner_name = rs.getString(2);
+	    		String event_planner_email = rs.getString(3);
+	    		String username = rs.getString(4);
+	    		String password = rs.getString(5);
+	    		eventplanner ep = new eventplanner(event_planner_id,event_planner_name,event_planner_email,username,password);
+	    		event.add(ep);
+	    	}
+	     }
+	     catch(Exception e){
+    	 e.printStackTrace();
+	    	 
+	    	 
+	     }
+	     
+	     return event;
+   }    
+   
+   public static boolean updateplanner(String event_planner_id,String event_planner_name,String event_planner_email,String username,String password) 
+   {
+	   boolean isSuccess = false;
+		
+	   
+		 
+		 try {
+			 
+			  
+			  con = DBConnect.getConnection();
+			  stmt = con.createStatement();
+			  String sql ="update event_palnner set event_planner_name = '"+event_planner_name+"',event_planner_email ='"+event_planner_email+"',username = '"+username+"',password ='"+password+"'"+"where evet_Planner_id='"+event_planner_id+"'"; 
+			  int rs = stmt.executeUpdate(sql);
+			  
+			  if(rs>0) {
+				  isSuccess = true;
+			  }
+			  else {
+				  isSuccess = false;
+			  }
+			  
+		 }
+		 
+		 catch(Exception e) {
+			  e.printStackTrace();
+		  }
+		 
+		return isSuccess; 
+		
+		
+		}
+}
